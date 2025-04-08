@@ -1,5 +1,8 @@
 package com.jeancharlesexe.backend.service.frete;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Terceirizado {
     public String calcularFrete(Double peso){
         Double preco = peso * 10;
@@ -7,6 +10,6 @@ public class Terceirizado {
     }
 
     public String tipo(){
-        return "Terceirizado";
+        return "terceirizado";
     }
 }

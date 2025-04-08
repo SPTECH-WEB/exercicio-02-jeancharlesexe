@@ -4,29 +4,31 @@ import com.jeancharlesexe.backend.service.entrega.NotificacaoService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class FreteService {
-    private Map<String, FreteStrategy> modalidades = new HashMap<>();
-    private final Terceirizado terceirizado = new Terceirizado();
+    private final Map<String, FreteStrategy> modalidades = new HashMap<>();
     private final NotificacaoService notificacaoService;
 
-    public FreteService(NotificacaoService notificacaoService) {
+    public FreteService(List<FreteStrategy> freteStrategies, NotificacaoService notificacaoService) {
         this.notificacaoService = notificacaoService;
-        modalidades.put("economica", new Economica());
-        modalidades.put("express", new Express());
-        modalidades.put("terceirizado", new TerceirizadoAdapter(terceirizado));
+
+        for (FreteStrategy freteStrategy : freteStrategies) {
+            modalidades.put(freteStrategy.tipo(), freteStrategy);
+        }
     }
 
     public String calcularFrete(String modalidade, Double peso, String email){
-        FreteStrategy strategy = modalidades.get(modalidade.toLowerCase());
+        FreteStrategy modalidadeEscolhida = modalidades.get(modalidade);
 
-        if(strategy == null){
+        if(modalidadeEscolhida == null){
             return "Erro ao encontrar a modalidade";
         }
 
         notificacaoService.notificarEntrega(email, modalidade);
-        return strategy.calcularFrete(peso);
+        return modalidadeEscolhida.calcularFrete(peso);
     }
 }

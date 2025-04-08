@@ -1,5 +1,10 @@
 package com.jeancharlesexe.backend.service.frete;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+@Qualifier("terceirizado")
 public class TerceirizadoAdapter implements FreteStrategy{
     private final Terceirizado terceirizado;
 
@@ -13,6 +18,6 @@ public class TerceirizadoAdapter implements FreteStrategy{
 
     @Override
     public String tipo() {
-        return "Terceirizado";
+        return "terceirizado";
     }
 }

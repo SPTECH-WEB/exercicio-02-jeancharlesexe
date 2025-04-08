@@ -1,8 +1,10 @@
 package com.jeancharlesexe.backend.service.frete;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@Qualifier("express")
 public class Express implements FreteStrategy{
     @Override
     public String calcularFrete(Double peso) {
@@ -12,6 +14,6 @@ public class Express implements FreteStrategy{
 
     @Override
     public String tipo() {
-        return "Express";
+        return "express";
     }
 }
