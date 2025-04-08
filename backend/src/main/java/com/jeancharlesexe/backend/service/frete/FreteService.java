@@ -4,15 +4,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class FreteService {
     private Map<String, FreteStrategy> modalidades = new HashMap<>();
+    private final Terceirizado terceirizado = new Terceirizado();
 
     public FreteService() {
         modalidades.put("economica", new Economica());
         modalidades.put("express", new Express());
+        modalidades.put("terceirizado", new TerceirizadoAdapter(terceirizado));
     }
 
     public String calcularFrete(String modalidade, Double peso){
