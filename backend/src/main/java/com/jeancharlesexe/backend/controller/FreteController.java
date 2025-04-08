@@ -11,7 +11,7 @@ public class FreteController {
     private FreteService freteService;
 
     @GetMapping("/{modalidade}")
-    public String escolherModalidade(@PathVariable String modalidade, @RequestParam Double peso) {
-        return freteService.calcularFrete(modalidade, peso);
+    public String escolherModalidade(@PathVariable String modalidade, @RequestParam Double peso, String email) {
+        return freteService.calcularFrete(modalidade, peso, email);
     }
 }
